@@ -114,13 +114,14 @@ describe('ContractClient', () => {
       const hash = await client.registerPattern(PATTERN_ID, BigInt(10_000_000_000_000_000));
 
       expect(hash).toBe(TX_HASH);
-      expect(walletClient.writeContract).toHaveBeenCalledWith({
-        address: REGISTRY,
-        abi: expect.any(Array),
-        functionName: 'registerPattern',
-        args: [PATTERN_ID],
-        value: BigInt(10_000_000_000_000_000),
-      });
+      expect(walletClient.writeContract).toHaveBeenCalledWith(
+        expect.objectContaining({
+          address: REGISTRY,
+          functionName: 'registerPattern',
+          args: [PATTERN_ID],
+          value: BigInt(10_000_000_000_000_000),
+        }),
+      );
     });
 
     it('should throw ContractError in read-only mode', async () => {
@@ -167,12 +168,13 @@ describe('ContractClient', () => {
       walletClient.writeContract.mockResolvedValueOnce(TX_HASH);
       const hash = await client.depositRewards(BigInt(1_000_000));
       expect(hash).toBe(TX_HASH);
-      expect(walletClient.writeContract).toHaveBeenCalledWith({
-        address: DISTRIBUTOR,
-        abi: expect.any(Array),
-        functionName: 'deposit',
-        value: BigInt(1_000_000),
-      });
+      expect(walletClient.writeContract).toHaveBeenCalledWith(
+        expect.objectContaining({
+          address: DISTRIBUTOR,
+          functionName: 'deposit',
+          value: BigInt(1_000_000),
+        }),
+      );
     });
   });
 

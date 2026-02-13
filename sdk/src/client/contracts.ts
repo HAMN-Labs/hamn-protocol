@@ -1,12 +1,7 @@
 // ─── HAMN Protocol SDK — On-chain Contract Client ─────────────────
 // viem-based client for interacting with PatternRegistry & RewardDistributor.
 
-import {
-  type PublicClient,
-  type WalletClient,
-  type GetContractReturnType,
-  getContract,
-} from 'viem';
+import type { PublicClient, WalletClient } from 'viem';
 
 import type { OnChainPattern } from '../types.js';
 import { ContractError } from '../errors.js';
@@ -137,22 +132,14 @@ export class ContractClient {
    * @returns Transaction hash
    */
   async registerPattern(id: `0x${string}`, stake: bigint): Promise<`0x${string}`> {
-    this.requireWallet();
-    try {
-      const hash = await this.walletClient!.writeContract({
-        address: this.registryAddress,
-        abi: PatternRegistryABI,
-        functionName: 'registerPattern',
-        args: [id],
-        value: stake,
-      });
-      return hash;
-    } catch (err) {
-      throw new ContractError(
-        `Failed to register pattern: ${err instanceof Error ? err.message : String(err)}`,
-        err,
-      );
-    }
+    return this.writeContract(
+      this.registryAddress,
+      PatternRegistryABI,
+      'registerPattern',
+      [id],
+      stake,
+      'Failed to register pattern',
+    );
   }
 
   /**
@@ -160,21 +147,14 @@ export class ContractClient {
    * @returns Transaction hash
    */
   async recordUsage(id: `0x${string}`): Promise<`0x${string}`> {
-    this.requireWallet();
-    try {
-      const hash = await this.walletClient!.writeContract({
-        address: this.registryAddress,
-        abi: PatternRegistryABI,
-        functionName: 'recordUsage',
-        args: [id],
-      });
-      return hash;
-    } catch (err) {
-      throw new ContractError(
-        `Failed to record usage: ${err instanceof Error ? err.message : String(err)}`,
-        err,
-      );
-    }
+    return this.writeContract(
+      this.registryAddress,
+      PatternRegistryABI,
+      'recordUsage',
+      [id],
+      undefined,
+      'Failed to record usage',
+    );
   }
 
   // ═══════════════════════════════════════════════════════════════════
@@ -224,21 +204,14 @@ export class ContractClient {
    * @returns Transaction hash
    */
   async depositRewards(amount: bigint): Promise<`0x${string}`> {
-    this.requireWallet();
-    try {
-      const hash = await this.walletClient!.writeContract({
-        address: this.distributorAddress,
-        abi: RewardDistributorABI,
-        functionName: 'deposit',
-        value: amount,
-      });
-      return hash;
-    } catch (err) {
-      throw new ContractError(
-        `Failed to deposit rewards: ${err instanceof Error ? err.message : String(err)}`,
-        err,
-      );
-    }
+    return this.writeContract(
+      this.distributorAddress,
+      RewardDistributorABI,
+      'deposit',
+      undefined,
+      amount,
+      'Failed to deposit rewards',
+    );
   }
 
   /**
@@ -246,21 +219,14 @@ export class ContractClient {
    * @returns Transaction hash
    */
   async accrueReward(patternId: `0x${string}`, baseReward: bigint): Promise<`0x${string}`> {
-    this.requireWallet();
-    try {
-      const hash = await this.walletClient!.writeContract({
-        address: this.distributorAddress,
-        abi: RewardDistributorABI,
-        functionName: 'accrueReward',
-        args: [patternId, baseReward],
-      });
-      return hash;
-    } catch (err) {
-      throw new ContractError(
-        `Failed to accrue reward: ${err instanceof Error ? err.message : String(err)}`,
-        err,
-      );
-    }
+    return this.writeContract(
+      this.distributorAddress,
+      RewardDistributorABI,
+      'accrueReward',
+      [patternId, baseReward],
+      undefined,
+      'Failed to accrue reward',
+    );
   }
 
   /**
@@ -268,28 +234,53 @@ export class ContractClient {
    * @returns Transaction hash
    */
   async claimRewards(): Promise<`0x${string}`> {
-    this.requireWallet();
-    try {
-      const hash = await this.walletClient!.writeContract({
-        address: this.distributorAddress,
-        abi: RewardDistributorABI,
-        functionName: 'claimRewards',
-      });
-      return hash;
-    } catch (err) {
-      throw new ContractError(
-        `Failed to claim rewards: ${err instanceof Error ? err.message : String(err)}`,
-        err,
-      );
-    }
+    return this.writeContract(
+      this.distributorAddress,
+      RewardDistributorABI,
+      'claimRewards',
+      undefined,
+      undefined,
+      'Failed to claim rewards',
+    );
   }
 
   // ── Internal ─────────────────────────────────────────────────────
 
-  private requireWallet(): void {
+  /**
+   * Generic writeContract helper that resolves viem's `chain` + `account` requirements.
+   * Uses `as any` to bypass strict generic inference — safe because ABI is validated at runtime.
+   */
+  private async writeContract(
+    address: `0x${string}`,
+    abi: readonly unknown[],
+    functionName: string,
+    args?: readonly unknown[],
+    value?: bigint,
+    errorPrefix?: string,
+  ): Promise<`0x${string}`> {
     if (!this.walletClient) {
       throw new ContractError(
         'WalletClient is required for write operations. Pass walletClient in ContractClientOptions.',
+      );
+    }
+    try {
+      const params: Record<string, unknown> = {
+        address,
+        abi,
+        functionName,
+        chain: this.walletClient.chain ?? null,
+        account: this.walletClient.account ?? undefined,
+      };
+      if (args) params.args = args;
+      if (value !== undefined) params.value = value;
+
+      const hash = await this.walletClient.writeContract(params as any);
+      return hash;
+    } catch (err) {
+      if (err instanceof ContractError) throw err;
+      throw new ContractError(
+        `${errorPrefix}: ${err instanceof Error ? err.message : String(err)}`,
+        err,
       );
     }
   }
