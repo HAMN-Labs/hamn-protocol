@@ -1,15 +1,18 @@
 {
   "name": "@hamn/sdk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "HAMN Protocol SDK — TypeScript client for interacting with Memory Nodes and on-chain contracts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
+    "vitest": "^3.0.0"
   },
   "dependencies": {
     "viem": "^2.10.0"
