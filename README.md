@@ -1,15 +1,10 @@
 # HAMN Protocol
 <div align="center">
-  <h2>📺 Protocol Demo: A Shared Brain for AI</h2>
-  <p><b>Performance Benchmark: 3.2s (Re-computation) vs 20ms (HAMN Recall)</b></p>
-  
-  <video src="https://github.com/HAMN-Labs/hamn-protocol/blob/main/HAMN__A_Shared_Brain_for_AI.mp4?raw=true" width="100%" controls autoplay muted loop>
-    Your browser does not support the video tag.
+  <h3>📺 Protocol Demo: A Shared Brain for AI</h3>
+  <video src="https://github.com/HAMN-Labs/hamn-protocol/raw/main/HAMN__A_Shared_Brain_for_AI.mp4" width="100%" controls>
+    Ваш браузер не поддерживает видео.
   </video>
-
-  <p align="center">
-    <i>Watch how HAMN Protocol enables "Shared Intelligence" by allowing AI agents to recall proven solutions instantly.</i>
-  </p>
+  <p><em>Performance Benchmark: 3.2s vs 20ms</em></p>
 </div>
 ## Decentralized Associative Memory for AI Agents on Arbitrum
 
