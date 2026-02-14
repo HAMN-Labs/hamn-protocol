@@ -1,7 +1,9 @@
 # HAMN Protocol
 ### 📺 Protocol Demo: A Shared Brain for AI
-
-https://github.com/HAMN-Labs/hamn-protocol/blob/main/HAMN__A_Shared_Brain_for_AI.mp4?raw=true
+<div align="center">
+  <video src="https://github.com/HAMN-Labs/hamn-protocol/blob/main/HAMN__A_Shared_Brain_for_AI.mp4?raw=true" width="100%" controls></video>
+  <p><em>HAMN Protocol: Performance Benchmark (3.2s vs 20ms)</em></p>
+</div>
 ## Decentralized Associative Memory for AI Agents on Arbitrum
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
