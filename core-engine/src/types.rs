@@ -4,6 +4,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 /// Core data structure for a memory pattern.
 /// Represents a reusable action pattern stored by the HAMN network.
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Pattern {
     /// Unique identifier (hash of the pattern content).
     pub id: String,
