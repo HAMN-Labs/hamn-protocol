@@ -6,7 +6,7 @@ ANVIL_PK ?= 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 REGISTRY_ADDR ?= 0x5fbdb2315678afecb367f032d93f642f64180aa3
 DISTRIBUTOR_ADDR ?= 0xe7f1725e7734ce288f8367e1bb143e90bb3f0512
 
-.PHONY: help test test-core test-contracts test-sdk build-sdk anvil memory-node deploy-local e2e
+.PHONY: help test test-core test-contracts test-sdk build-sdk anvil memory-node deploy-local e2e process-check
 
 help:
 	@echo "HAMN local workflow"
@@ -21,6 +21,7 @@ help:
 	@echo "  make memory-node     - Start Rust Memory Node on :8080"
 	@echo "  make deploy-local    - Deploy contracts to Anvil"
 	@echo "  make e2e             - Run SDK integration test"
+	@echo "  make process-check   - Ensure process docs were updated with code changes"
 	@echo ""
 	@echo "Configurable env vars:"
 	@echo "  ANVIL_RPC=$(ANVIL_RPC)"
@@ -63,3 +64,19 @@ e2e:
 		REGISTRY_ADDR=$(REGISTRY_ADDR) \
 		DISTRIBUTOR_ADDR=$(DISTRIBUTOR_ADDR) \
 		npx tsx scripts/integration-test.ts
+
+process-check:
+	@code_changes=$$(git diff --name-only HEAD -- core-engine sdk contracts Makefile | sed '/^docs\\//d' | sed '/^doc\\//d'); \
+	process_changes=$$(git diff --name-only HEAD -- docs/BACKLOG.md docs/CHANGELOG_DEV.md); \
+	if [ -z "$$code_changes" ]; then \
+		echo "process-check: no code changes detected"; \
+		exit 0; \
+	fi; \
+	if [ -z "$$process_changes" ]; then \
+		echo "process-check: code changed but docs/BACKLOG.md and docs/CHANGELOG_DEV.md were not updated"; \
+		echo ""; \
+		echo "Changed files:"; \
+		echo "$$code_changes"; \
+		exit 1; \
+	fi; \
+	echo "process-check: ok"
