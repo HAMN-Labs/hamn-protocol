@@ -5,6 +5,7 @@ const vitest_1 = require("vitest");
 const hamn_js_1 = require("../hamn.js");
 const memory_js_1 = require("../client/memory.js");
 const contracts_js_1 = require("../client/contracts.js");
+const errors_js_1 = require("../errors.js");
 // Mock the sub-clients
 vitest_1.vi.mock('../client/memory.js');
 vitest_1.vi.mock('../client/contracts.js');
@@ -38,6 +39,7 @@ vitest_1.vi.mock('../client/contracts.js');
                 timeoutMs: 5000,
             });
             (0, vitest_1.expect)(instance).toBeInstanceOf(hamn_js_1.HAMNClient);
+            (0, vitest_1.expect)(instance.mode).toBe('legacy');
             (0, vitest_1.expect)(memory_js_1.MemoryClient).toHaveBeenCalledWith({
                 nodeUrl: config.nodeUrl,
                 timeoutMs: 5000,
@@ -48,6 +50,29 @@ vitest_1.vi.mock('../client/contracts.js');
                 registryAddress: config.registryAddress,
                 distributorAddress: config.distributorAddress,
             });
+        });
+        (0, vitest_1.it)('should create client in stylus mode when provided', () => {
+            const config = {
+                nodeUrl: 'http://localhost:8080',
+                rpcUrl: 'http://localhost:8545',
+                registryAddress: '0x1000000000000000000000000000000000000000',
+                distributorAddress: '0x2000000000000000000000000000000000000000',
+                mode: 'stylus',
+                stylusVerifierAddress: '0x3000000000000000000000000000000000000000',
+            };
+            const instance = hamn_js_1.HAMNClient.create(config);
+            (0, vitest_1.expect)(instance.mode).toBe('stylus');
+            (0, vitest_1.expect)(instance.stylusVerifierAddress).toBe(config.stylusVerifierAddress);
+        });
+        (0, vitest_1.it)('should throw when stylus mode has no stylusVerifierAddress', () => {
+            const config = {
+                nodeUrl: 'http://localhost:8080',
+                rpcUrl: 'http://localhost:8545',
+                registryAddress: '0x1000000000000000000000000000000000000000',
+                distributorAddress: '0x2000000000000000000000000000000000000000',
+                mode: 'stylus',
+            };
+            (0, vitest_1.expect)(() => hamn_js_1.HAMNClient.create(config)).toThrow(errors_js_1.HAMNError);
         });
     });
     // ── Off-chain Delegation (Memory) ─────────────────────────────────

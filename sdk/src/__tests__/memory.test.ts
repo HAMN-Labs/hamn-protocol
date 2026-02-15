@@ -147,6 +147,21 @@ describe('MemoryClient', () => {
     });
   });
 
+  // ── getParams ────────────────────────────────────────────────────
+
+  describe('getParams', () => {
+    it('should GET /params and return math params', async () => {
+      const params = { alpha: 0.1, lambda: 0.001 };
+      mockFetch.mockResolvedValueOnce(jsonResponse(params));
+
+      const result = await client.getParams();
+
+      expect(result).toEqual(params);
+      expect(mockFetch.mock.calls[0][0]).toBe('http://localhost:8080/params');
+      expect(mockFetch.mock.calls[0][1].method).toBe('GET');
+    });
+  });
+
   // ── Error handling ───────────────────────────────────────────────
 
   describe('error handling', () => {

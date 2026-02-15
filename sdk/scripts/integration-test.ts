@@ -54,6 +54,13 @@ async function main() {
     process.exit(1);
   }
 
+  // 3.1 Verify /params endpoint contract
+  const params = await client.memory.getParams();
+  if (typeof params.alpha !== 'number' || typeof params.lambda !== 'number') {
+    throw new Error('Invalid /params response');
+  }
+  console.log(`✅ Memory params: alpha=${params.alpha}, lambda=${params.lambda}`);
+
   // 4. Register Pattern On-Chain
   // Generate a random pattern ID
   const patternId = keccak256(toHex(Date.now()));

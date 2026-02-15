@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HAMNClient = void 0;
 const memory_js_1 = require("./client/memory.js");
 const contracts_js_1 = require("./client/contracts.js");
+const errors_js_1 = require("./errors.js");
 /**
  * Full HAMN Protocol client.
  *
@@ -36,9 +37,15 @@ class HAMNClient {
     memory;
     /** Direct access to the on-chain contract client */
     contracts;
-    constructor(memory, contracts) {
+    /** Active SDK mode */
+    mode;
+    /** Optional Stylus verifier address */
+    stylusVerifierAddress;
+    constructor(memory, contracts, mode = 'legacy', stylusVerifierAddress) {
         this.memory = memory;
         this.contracts = contracts;
+        this.mode = mode;
+        this.stylusVerifierAddress = stylusVerifierAddress;
     }
     /**
      * Factory: create a HAMNClient from config + viem clients.
@@ -47,6 +54,10 @@ class HAMNClient {
      * Contract reads/writes will throw until you provide publicClient/walletClient.
      */
     static create(config, options) {
+        const mode = config.mode ?? 'legacy';
+        if (mode === 'stylus' && !config.stylusVerifierAddress) {
+            throw new errors_js_1.HAMNError('stylusVerifierAddress is required when mode is "stylus".');
+        }
         const memory = new memory_js_1.MemoryClient({
             nodeUrl: config.nodeUrl,
             timeoutMs: options?.timeoutMs,
@@ -57,7 +68,7 @@ class HAMNClient {
             registryAddress: config.registryAddress,
             distributorAddress: config.distributorAddress,
         });
-        return new HAMNClient(memory, contracts);
+        return new HAMNClient(memory, contracts, mode, config.stylusVerifierAddress);
     }
     // ═══════════════════════════════════════════════════════════════════
     //  Off-chain — Memory Node

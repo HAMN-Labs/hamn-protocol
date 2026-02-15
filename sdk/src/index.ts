@@ -7,6 +7,7 @@ export type {
   OnChainPattern,
   QueryResult,
   HAMNConfig,
+  HAMNMode,
   MathParams,
 } from './types.js';
 

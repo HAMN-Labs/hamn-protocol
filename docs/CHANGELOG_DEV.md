@@ -15,4 +15,13 @@
 - Создан `stylus-engine` skeleton (`stylus-engine/Cargo.toml`, `stylus-engine/src/lib.rs`, `stylus-engine/README.md`).
 - Добавлен CI workflow для stylus-engine: `.github/workflows/stylus-engine.yml`.
 - Прогон тестов `stylus-engine`: 4/4 passed.
-- Sprint/backlog обновлены: `HAMN-032` закрыт, `HAMN-033` переведена в `in-progress`.
+- В SDK добавлен dual mode (`legacy`/`stylus`) через `HAMNConfig.mode`.
+- Валидация SDK: `stylus` mode требует `stylusVerifierAddress`.
+- Обновлены SDK unit tests (`HAMNClient`): 42/42 passed.
+- Добавлен threat model: `docs/security/stylus-threat-model-v1.md`.
+- Добавлен testnet runbook: `docs/ops/testnet-deployment-runbook.md`.
+- Добавлена проверка `GET /params` в `sdk/src/__tests__/memory.test.ts`.
+- E2E script проверяет `/params` через `client.memory.getParams()`.
+- SDK tests после изменений: 43/43 passed.
+- Добавлен `make e2e-smoke` с preflight-проверками Memory Node и RPC.
+- Sprint/backlog обновлены: `HAMN-015` закрыт, `HAMN-016` переведен в `in-progress`.

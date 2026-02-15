@@ -1,5 +1,5 @@
 import type { PublicClient, WalletClient } from 'viem';
-import type { HAMNConfig, Pattern, QueryResult, OnChainPattern } from './types.js';
+import type { HAMNConfig, HAMNMode, Pattern, QueryResult, OnChainPattern } from './types.js';
 import { MemoryClient } from './client/memory.js';
 import { ContractClient } from './client/contracts.js';
 /**
@@ -33,7 +33,11 @@ export declare class HAMNClient {
     readonly memory: MemoryClient;
     /** Direct access to the on-chain contract client */
     readonly contracts: ContractClient;
-    constructor(memory: MemoryClient, contracts: ContractClient);
+    /** Active SDK mode */
+    readonly mode: HAMNMode;
+    /** Optional Stylus verifier address */
+    readonly stylusVerifierAddress?: `0x${string}`;
+    constructor(memory: MemoryClient, contracts: ContractClient, mode?: HAMNMode, stylusVerifierAddress?: `0x${string}`);
     /**
      * Factory: create a HAMNClient from config + viem clients.
      *

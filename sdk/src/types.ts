@@ -52,6 +52,9 @@ export interface QueryResult {
   score: number;
 }
 
+/** SDK operating mode. */
+export type HAMNMode = 'legacy' | 'stylus';
+
 /**
  * Configuration for connecting to the HAMN network.
  */
@@ -64,6 +67,10 @@ export interface HAMNConfig {
   registryAddress: `0x${string}`;
   /** RewardDistributor contract address */
   distributorAddress: `0x${string}`;
+  /** SDK mode (default: legacy). */
+  mode?: HAMNMode;
+  /** Stylus verifier address (required when mode = "stylus"). */
+  stylusVerifierAddress?: `0x${string}`;
   /** Chain ID (default: 421614 for Arbitrum Sepolia) */
   chainId?: number;
 }

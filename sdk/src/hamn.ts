@@ -3,9 +3,10 @@
 
 import type { PublicClient, WalletClient } from 'viem';
 
-import type { HAMNConfig, Pattern, QueryResult, OnChainPattern } from './types.js';
+import type { HAMNConfig, HAMNMode, Pattern, QueryResult, OnChainPattern } from './types.js';
 import { MemoryClient } from './client/memory.js';
 import { ContractClient } from './client/contracts.js';
+import { HAMNError } from './errors.js';
 
 /**
  * Full HAMN Protocol client.
@@ -38,13 +39,21 @@ export class HAMNClient {
   public readonly memory: MemoryClient;
   /** Direct access to the on-chain contract client */
   public readonly contracts: ContractClient;
+  /** Active SDK mode */
+  public readonly mode: HAMNMode;
+  /** Optional Stylus verifier address */
+  public readonly stylusVerifierAddress?: `0x${string}`;
 
   constructor(
     memory: MemoryClient,
     contracts: ContractClient,
+    mode: HAMNMode = 'legacy',
+    stylusVerifierAddress?: `0x${string}`,
   ) {
     this.memory = memory;
     this.contracts = contracts;
+    this.mode = mode;
+    this.stylusVerifierAddress = stylusVerifierAddress;
   }
 
   /**
@@ -61,6 +70,13 @@ export class HAMNClient {
       timeoutMs?: number;
     },
   ): HAMNClient {
+    const mode = config.mode ?? 'legacy';
+    if (mode === 'stylus' && !config.stylusVerifierAddress) {
+      throw new HAMNError(
+        'stylusVerifierAddress is required when mode is "stylus".',
+      );
+    }
+
     const memory = new MemoryClient({
       nodeUrl: config.nodeUrl,
       timeoutMs: options?.timeoutMs,
@@ -73,7 +89,7 @@ export class HAMNClient {
       distributorAddress: config.distributorAddress,
     });
 
-    return new HAMNClient(memory, contracts);
+    return new HAMNClient(memory, contracts, mode, config.stylusVerifierAddress);
   }
 
   // ═══════════════════════════════════════════════════════════════════

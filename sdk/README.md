@@ -236,6 +236,7 @@ import type {
   OnChainPattern, // On-chain pattern (stake, reputation, usageCount)
   QueryResult, // Search result (pattern + similarity + score)
   HAMNConfig, // SDK configuration
+  HAMNMode, // SDK mode: "legacy" | "stylus"
   MathParams, // Hyperparameters (alpha, lambda)
 } from "@hamn/sdk";
 ```
@@ -271,6 +272,8 @@ import type {
 | `rpcUrl`             | `string`            | Arbitrum RPC URL                     |
 | `registryAddress`    | `` `0x${string}` `` | PatternRegistry address              |
 | `distributorAddress` | `` `0x${string}` `` | RewardDistributor address            |
+| `mode?`              | `HAMNMode`          | SDK mode (`legacy` by default)       |
+| `stylusVerifierAddress?` | `` `0x${string}` `` | Required when `mode = "stylus"`  |
 | `chainId?`           | `number`            | Default: `421614` (Arbitrum Sepolia) |
 
 ---

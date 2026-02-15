@@ -125,7 +125,7 @@ To transition from MVP to a global intelligence marketplace, HAMN leverages **Ar
 | -------------------------------- | ------------------ | ------------------------------------------------------------------------------- |
 | [`core-engine/`](./core-engine/) | Rust               | Memory engine (similarity, scoring, decay) — **22/22 tests**                    |
 | [`contracts/`](./contracts/)     | Solidity + Foundry | PatternRegistry, RewardDistributor — **12/12 tests**                            |
-| [`sdk/`](./sdk/)                 | TypeScript + viem  | Client SDK ([EN](./sdk/README.md) / [RU](./sdk/README.ru.md)) — **40/40 tests** |
+| [`sdk/`](./sdk/)                 | TypeScript + viem  | Client SDK ([EN](./sdk/README.md) / [RU](./sdk/README.ru.md)) — **43/43 tests** |
 
 ---
 

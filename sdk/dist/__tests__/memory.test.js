@@ -115,6 +115,17 @@ function jsonResponse(data, status = 200) {
             (0, vitest_1.expect)(await client.health()).toBe(false);
         });
     });
+    // ── getParams ────────────────────────────────────────────────────
+    (0, vitest_1.describe)('getParams', () => {
+        (0, vitest_1.it)('should GET /params and return math params', async () => {
+            const params = { alpha: 0.1, lambda: 0.001 };
+            mockFetch.mockResolvedValueOnce(jsonResponse(params));
+            const result = await client.getParams();
+            (0, vitest_1.expect)(result).toEqual(params);
+            (0, vitest_1.expect)(mockFetch.mock.calls[0][0]).toBe('http://localhost:8080/params');
+            (0, vitest_1.expect)(mockFetch.mock.calls[0][1].method).toBe('GET');
+        });
+    });
     // ── Error handling ───────────────────────────────────────────────
     (0, vitest_1.describe)('error handling', () => {
         (0, vitest_1.it)('should throw MemoryNodeError on HTTP error', async () => {

@@ -4,6 +4,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { HAMNClient } from '../hamn.js';
 import { MemoryClient } from '../client/memory.js';
 import { ContractClient } from '../client/contracts.js';
+import { HAMNError } from '../errors.js';
 
 // Mock the sub-clients
 vi.mock('../client/memory.js');
@@ -46,6 +47,7 @@ describe('HAMNClient', () => {
       });
 
       expect(instance).toBeInstanceOf(HAMNClient);
+      expect(instance.mode).toBe('legacy');
       expect(MemoryClient).toHaveBeenCalledWith({
         nodeUrl: config.nodeUrl,
         timeoutMs: 5000,
@@ -56,6 +58,33 @@ describe('HAMNClient', () => {
         registryAddress: config.registryAddress,
         distributorAddress: config.distributorAddress,
       });
+    });
+
+    it('should create client in stylus mode when provided', () => {
+      const config = {
+        nodeUrl: 'http://localhost:8080',
+        rpcUrl: 'http://localhost:8545',
+        registryAddress: '0x1000000000000000000000000000000000000000' as const,
+        distributorAddress: '0x2000000000000000000000000000000000000000' as const,
+        mode: 'stylus' as const,
+        stylusVerifierAddress: '0x3000000000000000000000000000000000000000' as const,
+      };
+
+      const instance = HAMNClient.create(config);
+      expect(instance.mode).toBe('stylus');
+      expect(instance.stylusVerifierAddress).toBe(config.stylusVerifierAddress);
+    });
+
+    it('should throw when stylus mode has no stylusVerifierAddress', () => {
+      const config = {
+        nodeUrl: 'http://localhost:8080',
+        rpcUrl: 'http://localhost:8545',
+        registryAddress: '0x1000000000000000000000000000000000000000' as const,
+        distributorAddress: '0x2000000000000000000000000000000000000000' as const,
+        mode: 'stylus' as const,
+      };
+
+      expect(() => HAMNClient.create(config)).toThrow(HAMNError);
     });
   });
 
