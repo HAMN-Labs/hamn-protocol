@@ -71,15 +71,15 @@ Pattern {
 
 ### Off-chain (Memory Layer)
 
-- **HAMN Memory Engine:** Core retrieval engine.
-- **Similarity Search:** Algorithmic matching of current context to stored patterns.
-- **Reinforcement Updates:** Continuous score adjustments based on agent performance.
+- **HAMN Memory Node:** Ingestion, indexing, API, and observability/control-plane responsibilities.
+- **Serving Policy (Phase 5):** Retrieval/scoring baseline is Stylus-first; off-chain path is emergency fallback only.
 
 ### On-chain (Arbitrum + Stylus Layer)
 
 - **Pattern Ownership:** Secure registry of pattern contributors.
 - **Staking & Reputation:** Participants lose stake for poor solutions and gain reputation for useful ones.
 - **Intelligence Marketplace:** Automated reward distribution based on reuse count.
+- **Retrieval & Scoring:** Deterministic similarity/ranking/usage-decay path executed in Stylus contracts.
 
 ---
 
@@ -125,7 +125,7 @@ To transition from MVP to a global intelligence marketplace, HAMN leverages **Ar
 | -------------------------------- | ------------------ | ------------------------------------------------------------------------------- |
 | [`core-engine/`](./core-engine/) | Rust               | Memory engine (similarity, scoring, decay) — **22/22 tests**                    |
 | [`contracts/`](./contracts/)     | Solidity + Foundry | PatternRegistry, RewardDistributor — **12/12 tests**                            |
-| [`sdk/`](./sdk/)                 | TypeScript + viem  | Client SDK ([EN](./sdk/README.md) / [RU](./sdk/README.ru.md)) — **43/43 tests** |
+| [`sdk/`](./sdk/)                 | TypeScript + viem  | Client SDK ([EN](./sdk/README.md) / [RU](./sdk/README.ru.md)) — **44/44 tests** |
 
 ---
 

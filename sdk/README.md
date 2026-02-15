@@ -272,9 +272,12 @@ import type {
 | `rpcUrl`             | `string`            | Arbitrum RPC URL                     |
 | `registryAddress`    | `` `0x${string}` `` | PatternRegistry address              |
 | `distributorAddress` | `` `0x${string}` `` | RewardDistributor address            |
-| `mode?`              | `HAMNMode`          | SDK mode (`legacy` by default)       |
-| `stylusVerifierAddress?` | `` `0x${string}` `` | Required when `mode = "stylus"`  |
+| `mode?`              | `HAMNMode`          | SDK mode (`stylus` by default)       |
+| `stylusVerifierAddress?` | `` `0x${string}` `` | Stylus verifier address for stylus mode |
+| `legacyFallbackEnabled?` | `boolean` | Allow stylus→legacy fallback when stylus config is incomplete (default: `true`) |
 | `chainId?`           | `number`            | Default: `421614` (Arbitrum Sepolia) |
+
+Production rollout recommendation: use `mode: "stylus"` and set `legacyFallbackEnabled: false` unless incident response explicitly enables fallback.
 
 ---
 

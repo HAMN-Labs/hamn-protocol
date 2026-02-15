@@ -8,6 +8,12 @@ Task: HAMN-035
 
 Стандартизировать безопасный деплой Stylus-related изменений в Arbitrum testnet до canary/mainnet.
 
+## Rollout Policy (Phase 5)
+
+- Primary path: `stylus` mode обязателен для всех testnet/canary проверок.
+- Legacy path: только emergency fallback по решению incident commander.
+- Для стандартного deployment approval требуются smoke/parity артефакты именно по Stylus path.
+
 ## Preconditions
 
 - Утвержден `stylus-boundary-v1`.
@@ -39,7 +45,9 @@ Task: HAMN-035
 
 3. Post-deploy configuration
 - Прописать адреса в SDK env/config.
-- Если включен stylus mode, установить `stylusVerifierAddress`.
+- Установить `mode=stylus`.
+- Установить `stylusVerifierAddress`.
+- Рекомендовано установить `legacyFallbackEnabled=false` для smoke/canary gate.
 
 4. Smoke verification
 - Выполнить checklist (см. ниже).
@@ -47,6 +55,7 @@ Task: HAMN-035
 
 5. Rollback decision
 - Если smoke не пройден, активировать freeze/rollback процедуру.
+- Legacy fallback допускается только как временная mitigation до rollback/fix.
 - Если smoke пройден, пометить deployment как stable on testnet.
 
 ## Smoke Checklist
@@ -57,6 +66,7 @@ Task: HAMN-035
 - [ ] `recordUsage` обновляет usage/reputation ожидаемо.
 - [ ] `depositRewards` и `claimRewards` работают.
 - [ ] stylus-enabled flow возвращает валидный verification output.
+- [ ] SDK запускался в `mode=stylus`; legacy path не использовался в baseline smoke.
 - [ ] parity sample: off-chain math и stylus reference совпадают на test vectors.
 
 ## Artifacts to Store

@@ -36,4 +36,50 @@
 - Добавлен `docs/ops/mainnet-deployment-ledger-template.md`.
 - `process-check` расширен: учитывает `stylus-engine` и `.github`.
 - `.gitignore` обновлен: добавлен `stylus-engine/target/`.
-- Sprint/backlog обновлены: `HAMN-039` закрыт, `HAMN-040` переведен в `in-progress`.
+- Добавлены `docs/ops/post-deploy-verification-template.sh` и `docs/ops/post-deploy-verification-template.md`.
+- Проверен синтаксис post-deploy шаблона: `bash -n` passed.
+- Sprint/backlog обновлены: `HAMN-040` закрыт, `HAMN-041` переведен в `in-progress`.
+- Добавлена матрица approvals: `docs/process/release-signoff-matrix.md`.
+- Обновлен PR template: секция `Release Sign-Off (for release PRs)`.
+- Sprint/backlog обновлены: `HAMN-041` закрыт, `HAMN-042` переведен в `in-progress`.
+- Добавлен шаблон RCA: `docs/ops/incident-postmortem-template.md`.
+- Обновлен индекс docs: добавлена ссылка на incident postmortem template.
+- Sprint/backlog обновлены: `HAMN-042` закрыт, `HAMN-043` переведен в `in-progress`.
+- Добавлен шаблон коммуникаций: `docs/ops/release-communications-template.md`.
+- Добавлен шаблон incident timeline log: `docs/ops/incident-timeline-log-template.md`.
+- Sprint/backlog обновлены: `HAMN-043` и `HAMN-044` закрыты, `HAMN-045` переведен в `in-progress`.
+- Добавлен release readiness checklist: `docs/process/release-readiness-review-checklist-template.md`.
+- Обновлен индекс docs: добавлена ссылка на release readiness checklist.
+- Sprint/backlog обновлены: `HAMN-045` закрыт, `HAMN-046` переведен в `in-progress`.
+- Sprint scope обновлен: полная миграция off-chain логики в Stylus включена в текущий спринт.
+- Добавлен migration epic `HAMN-050` и execution subtasks `HAMN-051..HAMN-056`.
+- Обновлены `docs/PHASE5_STYLUS_MAINNET_PLAN.md`, `docs/SPRINT.md`, `docs/BACKLOG.md`, `docs/RISKS.md`.
+- Реализован `HAMN-051`: порт scoring/retrieval функций в `stylus-engine/src/lib.rs`.
+- Добавлены функции: `cosine_similarity_fp`, `rank_patterns_v1`, `record_usage_v1`, `decay_pattern_v1`.
+- Расширены unit-тесты `stylus-engine`: 8 unit + 2 parity tests passed.
+- Sprint/backlog обновлены: `HAMN-051` закрыт, `HAMN-052` переведен в `in-progress`.
+- Реализован `HAMN-052`: SDK switched to stylus-first default flow.
+- Добавлено поле `legacyFallbackEnabled` в `HAMNConfig`.
+- В `HAMNClient.create` добавлен управляемый fallback stylus -> legacy при неполном stylus config.
+- Обновлены SDK tests и документация (`sdk/README.md`), SDK tests: 44/44 passed.
+- Sprint/backlog обновлены: `HAMN-052` закрыт, `HAMN-053` переведен в `in-progress`.
+- Реализован `HAMN-053`: добавлен batch parity harness `stylus-engine/tests/parity_harness.rs`.
+- Добавлен конфиг batch-сверки `docs/specs/test-vectors/stylus-boundary-v1-batch-config.json`.
+- Прогон `stylus-engine` после добавления harness: unit/parity tests passed.
+- Sprint/backlog обновлены: `HAMN-053` закрыт, `HAMN-054` переведен в `in-progress`.
+- Реализован `HAMN-054`: добавлен `docs/ops/offchain-to-stylus-cutover-plan.md`.
+- В cutover plan зафиксированы stages C0..C4, freeze policy, rollback triggers и procedure.
+- Обновлен индекс docs: добавлена ссылка на offchain->stylus cutover plan.
+- Sprint/backlog обновлены: `HAMN-054` закрыт, `HAMN-055` переведен в `in-progress`.
+- Реализован `HAMN-055`: runbooks/docs переведены в Stylus-first policy.
+- Обновлены `docs/ops/testnet-deployment-runbook.md`, `docs/ops/mainnet-go-no-go-checklist.md`, `docs/ops/post-deploy-verification-template.md`.
+- Обновлены `README.md` и `sdk/README.md`: зафиксирован primary path=`stylus`, legacy — emergency fallback.
+- Sprint/backlog обновлены: `HAMN-055` закрыт; удален дублирующий planned entry `HAMN-056`.
+- Реализован `HAMN-046`: добавлен `docs/process/release-dependency-owner-map-template.md`.
+- Обновлен индекс docs (`docs/README.md`) с новым process-артефактом.
+- Sprint/backlog обновлены: `HAMN-046` закрыт, `HAMN-047` переведен в `in-progress`.
+- Реализован `HAMN-047`: добавлен `docs/ops/canary-scorecard-template.md`.
+- Реализован `HAMN-048`: добавлен `docs/ops/release-owner-handoff-checklist-template.md`.
+- Обновлен индекс docs (`docs/README.md`) с новыми ops templates.
+- Sprint/backlog обновлены: `HAMN-047` и `HAMN-048` закрыты, `HAMN-056` переведен в `in-progress`.
+- Стартован `HAMN-056`: добавлен draft `docs/ops/legacy-offchain-decommission-plan.md` (stages D0..D4, governance gates, rollback policy).

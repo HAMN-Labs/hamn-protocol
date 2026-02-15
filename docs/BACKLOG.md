@@ -6,19 +6,19 @@
 
 | ID | Task | Area | Priority | Status | Owner | Notes |
 |---|---|---|---|---|---|---|
-| HAMN-040 | Добавить post-deploy verification script template | Ops/QA | P3 | in-progress | codex | Сформировать reusable шаблон smoke/parity post-deploy проверки |
+| HAMN-056 | Decommission plan for legacy off-chain path | Ops/Governance | P1 | in-progress | codex | Draft added: `docs/ops/legacy-offchain-decommission-plan.md` |
 
 ## Next
 
 | ID | Task | Area | Priority | Status | Owner | Notes |
 |---|---|---|---|---|---|---|
-| HAMN-041 | Добавить release sign-off matrix (Protocol/Security/Ops) | Governance | P3 | next | unassigned | Формализовать обязательные approve роли |
+| HAMN-057 | Add on-chain retrieval benchmark suite for Stylus path | Core/QA | P1 | next | unassigned | Performance SLA validation |
 
 ## Planned
 
 | ID | Task | Area | Priority | Status | Owner | Notes |
 |---|---|---|---|---|---|---|
-| HAMN-042 | Добавить incident postmortem template для rollout инцидентов | Ops | P3 | planned | unassigned | Единый формат RCA после canary/mainnet |
+| HAMN-058 | Mainnet rehearsal report template (dry-run summary + gaps) | Ops/QA | P2 | planned | unassigned | Стандартизировать артефакт dry-run перед mainnet window |
 
 ## Done
 
@@ -45,6 +45,20 @@
 | HAMN-037 | Mainnet deployment checklist + go/no-go template | Ops/Governance | P1 | done | codex | Созданы `docs/ops/mainnet-go-no-go-checklist.md` и `docs/ops/mainnet-go-no-go-template.md` |
 | HAMN-038 | Добавить parity test-vectors JSON для stylus-boundary-v1 | Core/QA | P2 | done | codex | Создан `docs/specs/test-vectors/stylus-boundary-v1.json` + test `stylus-engine/tests/parity_vectors.rs` |
 | HAMN-039 | Добавить mainnet deployment ledger template (addresses/tx hashes/owners) | Ops | P2 | done | codex | Создан `docs/ops/mainnet-deployment-ledger-template.md` |
+| HAMN-040 | Добавить post-deploy verification script template | Ops/QA | P3 | done | codex | Добавлены `docs/ops/post-deploy-verification-template.sh` и `.md` |
+| HAMN-041 | Добавить release sign-off matrix (Protocol/Security/Ops) | Governance | P3 | done | codex | Добавлен `docs/process/release-signoff-matrix.md` и PR sign-off блок |
+| HAMN-042 | Добавить incident postmortem template для rollout инцидентов | Ops | P3 | done | codex | Добавлен `docs/ops/incident-postmortem-template.md` |
+| HAMN-043 | Добавить release communications template (internal/public) | Ops/Comms | P3 | done | codex | Добавлен `docs/ops/release-communications-template.md` |
+| HAMN-044 | Добавить incident timeline log template для deployment window | Ops | P3 | done | codex | Добавлен `docs/ops/incident-timeline-log-template.md` |
+| HAMN-045 | Добавить release readiness review checklist template | Governance | P3 | done | codex | Добавлен `docs/process/release-readiness-review-checklist-template.md` |
+| HAMN-051 | Port retrieval scoring path from `core-engine` into Stylus contracts | Core/Stylus | P0 | done | codex | Реализованы `cosine_similarity_fp`, `rank_patterns_v1`, usage/decay update в `stylus-engine/src/lib.rs` |
+| HAMN-052 | Replace SDK default flow to Stylus-first (legacy fallback flag) | SDK | P0 | done | codex | SDK default mode=`stylus`, добавлен `legacyFallbackEnabled`, fallback в legacy управляется флагом |
+| HAMN-053 | Build migration harness for parity at scale | QA | P0 | done | codex | Добавлен batch parity harness `stylus-engine/tests/parity_harness.rs` + config `docs/specs/test-vectors/stylus-boundary-v1-batch-config.json` |
+| HAMN-054 | Define cutover + freeze plan for off-chain logic | Ops | P0 | done | codex | Добавлен `docs/ops/offchain-to-stylus-cutover-plan.md` |
+| HAMN-055 | Update runbooks and docs for Stylus-only primary path | Docs/Ops | P1 | done | codex | Обновлены testnet/mainnet/post-deploy runbooks + README/SDK guidance под Stylus-first |
+| HAMN-046 | Добавить dependency and owner map template для release scope | Process | P3 | done | codex | Добавлен `docs/process/release-dependency-owner-map-template.md` |
+| HAMN-047 | Добавить canary scorecard template (metrics + gate result) | Ops/QA | P3 | done | codex | Добавлен `docs/ops/canary-scorecard-template.md` |
+| HAMN-048 | Добавить release owner handoff checklist template | Ops | P3 | done | codex | Добавлен `docs/ops/release-owner-handoff-checklist-template.md` |
 
 ## Icebox
 

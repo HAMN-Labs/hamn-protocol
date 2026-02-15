@@ -67,10 +67,12 @@ export interface HAMNConfig {
   registryAddress: `0x${string}`;
   /** RewardDistributor contract address */
   distributorAddress: `0x${string}`;
-  /** SDK mode (default: legacy). */
+  /** SDK mode (default: stylus). */
   mode?: HAMNMode;
   /** Stylus verifier address (required when mode = "stylus"). */
   stylusVerifierAddress?: `0x${string}`;
+  /** Allow fallback to legacy mode when stylus config is incomplete. Default: true. */
+  legacyFallbackEnabled?: boolean;
   /** Chain ID (default: 421614 for Arbitrum Sepolia) */
   chainId?: number;
 }

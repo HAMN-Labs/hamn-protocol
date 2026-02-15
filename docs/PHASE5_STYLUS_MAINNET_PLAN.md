@@ -126,3 +126,13 @@ Definition of Done:
 2. Создать skeleton `stylus-engine/` + CI шаблон.
 3. Подготовить spec draft boundary + test vectors.
 4. Определить минимальный mainnet cut для первой поставки.
+
+## Sprint Override (2026-02-16)
+
+По решению продукта текущий спринт включает расширенный scope:
+- полная миграция off-chain логики в Stylus в рамках sprint window;
+- legacy путь остается только как fallback до завершения cutover.
+
+Execution tracking:
+- Epic: `HAMN-050`
+- Subtasks: `HAMN-051..HAMN-056` (см. `docs/BACKLOG.md`).

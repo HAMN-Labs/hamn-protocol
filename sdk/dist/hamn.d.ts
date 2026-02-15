@@ -35,9 +35,15 @@ export declare class HAMNClient {
     readonly contracts: ContractClient;
     /** Active SDK mode */
     readonly mode: HAMNMode;
+    /** Requested mode from config before fallback handling. */
+    readonly requestedMode: HAMNMode;
     /** Optional Stylus verifier address */
     readonly stylusVerifierAddress?: `0x${string}`;
-    constructor(memory: MemoryClient, contracts: ContractClient, mode?: HAMNMode, stylusVerifierAddress?: `0x${string}`);
+    /** Whether fallback from stylus -> legacy is enabled. */
+    readonly legacyFallbackEnabled: boolean;
+    /** True when requested stylus mode was downgraded to legacy fallback. */
+    readonly legacyFallbackUsed: boolean;
+    constructor(memory: MemoryClient, contracts: ContractClient, mode?: HAMNMode, requestedMode?: HAMNMode, stylusVerifierAddress?: `0x${string}`, legacyFallbackEnabled?: boolean, legacyFallbackUsed?: boolean);
     /**
      * Factory: create a HAMNClient from config + viem clients.
      *

@@ -47,7 +47,10 @@ describe('HAMNClient', () => {
       });
 
       expect(instance).toBeInstanceOf(HAMNClient);
+      expect(instance.requestedMode).toBe('stylus');
       expect(instance.mode).toBe('legacy');
+      expect(instance.legacyFallbackEnabled).toBe(true);
+      expect(instance.legacyFallbackUsed).toBe(true);
       expect(MemoryClient).toHaveBeenCalledWith({
         nodeUrl: config.nodeUrl,
         timeoutMs: 5000,
@@ -72,19 +75,37 @@ describe('HAMNClient', () => {
 
       const instance = HAMNClient.create(config);
       expect(instance.mode).toBe('stylus');
+      expect(instance.requestedMode).toBe('stylus');
+      expect(instance.legacyFallbackUsed).toBe(false);
       expect(instance.stylusVerifierAddress).toBe(config.stylusVerifierAddress);
     });
 
-    it('should throw when stylus mode has no stylusVerifierAddress', () => {
+    it('should throw when stylus mode has no stylusVerifierAddress and fallback is disabled', () => {
       const config = {
         nodeUrl: 'http://localhost:8080',
         rpcUrl: 'http://localhost:8545',
         registryAddress: '0x1000000000000000000000000000000000000000' as const,
         distributorAddress: '0x2000000000000000000000000000000000000000' as const,
         mode: 'stylus' as const,
+        legacyFallbackEnabled: false,
       };
 
       expect(() => HAMNClient.create(config)).toThrow(HAMNError);
+    });
+
+    it('should keep stylus mode by default when stylusVerifierAddress is provided', () => {
+      const config = {
+        nodeUrl: 'http://localhost:8080',
+        rpcUrl: 'http://localhost:8545',
+        registryAddress: '0x1000000000000000000000000000000000000000' as const,
+        distributorAddress: '0x2000000000000000000000000000000000000000' as const,
+        stylusVerifierAddress: '0x3000000000000000000000000000000000000000' as const,
+      };
+
+      const instance = HAMNClient.create(config);
+      expect(instance.requestedMode).toBe('stylus');
+      expect(instance.mode).toBe('stylus');
+      expect(instance.legacyFallbackUsed).toBe(false);
     });
   });
 

@@ -18,6 +18,8 @@ Task: HAMN-037
 - [ ] No open High/Critical issues in security scope.
 - [ ] Parity checks passed for boundary test vectors.
 - [ ] Contracts/artifacts hashes verified.
+- [ ] Stylus path validated as primary serving path for release scope.
+- [ ] Legacy path (if enabled) marked as emergency-only fallback with owner approval.
 
 ## Operational Readiness
 
@@ -37,6 +39,7 @@ Task: HAMN-037
 - [ ] Ordered transaction sequence documented.
 - [ ] Expected addresses documented.
 - [ ] Post-deploy smoke commands prepared.
+- [ ] Stylus verifier address and SDK `mode=stylus` rollout config documented.
 
 ## Go/No-Go Criteria
 

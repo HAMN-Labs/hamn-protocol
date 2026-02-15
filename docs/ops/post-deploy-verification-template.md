@@ -18,7 +18,7 @@ Task: HAMN-040
 
 ## Optional Env
 
-- `STYLUS_VERIFIER_ADDRESS`
+- `STYLUS_VERIFIER_ADDRESS` (для Phase 5 mainnet/canary считать required)
 - `EXPECT_CHAIN_ID` (hex, e.g. `0xa4b1`)
 - `RUN_E2E_SMOKE=1`
 
@@ -44,6 +44,7 @@ bash docs/ops/post-deploy-verification-template.sh
 ## Notes
 
 - Скрипт intentionally fail-fast (`set -euo pipefail`).
+- Для Stylus-first rollout baseline-сценарий: smoke в SDK `mode=stylus`, legacy только для incident fallback.
 - Для mainnet используйте его вместе с:
   - `docs/ops/mainnet-go-no-go-checklist.md`
   - `docs/ops/mainnet-deployment-ledger-template.md`

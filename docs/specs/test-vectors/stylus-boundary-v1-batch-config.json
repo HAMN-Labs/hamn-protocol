@@ -1,0 +1,23 @@
+{
+  "version": "stylus-boundary-v1-batch",
+  "samples": {
+    "similarity_fp": [0, 1, 1000, 250000, 500000, 750000, 1000000],
+    "confidence_fp": [0, 1, 1000, 250000, 500000, 900000, 1000000],
+    "lambda_fp": [0, 1, 100, 1000, 100000, 500000, 1000000],
+    "dt_seconds": [0, 1, 10, 100, 10000, 1000000],
+    "usage_count": [0, 1, 2, 3, 7, 15, 31, 63],
+    "reputation_bp": [0, 1, 100, 5000, 10000]
+  },
+  "tolerance": {
+    "score_fp": 1,
+    "freshness_fp": 1,
+    "reward_weight_fp": 1
+  },
+  "rank_harness": {
+    "patterns": 128,
+    "top_k": 20,
+    "lambda_fp": 1000,
+    "now": 10000,
+    "tolerance": 2
+  }
+}

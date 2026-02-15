@@ -28,8 +28,15 @@
 | HAMN-043 | Release communications template | done | Добавлен шаблон internal/public обновлений по релизу |
 | HAMN-044 | Incident timeline log template | done | Добавлен UTC timeline шаблон для deployment window |
 | HAMN-045 | Release readiness review checklist | done | Добавлен checklist template и критерии pre-go/no-go |
-| HAMN-046 | Release dependency/owner map template | in-progress | Добавлен шаблон карты зависимостей и ownership release scope |
-| HAMN-050 | Full off-chain -> Stylus migration execution | in-progress | Core off-chain logic parity-ported in Stylus, SDK switched to stylus path by default, legacy path frozen behind fallback flag |
+| HAMN-046 | Dependency and owner map template | done | Добавлен шаблон release dependency/owner map с fallback ownership |
+| HAMN-051 | Port retrieval scoring path to Stylus | done | Реализованы ranking/cosine/usage/decay функции в `stylus-engine` + тесты |
+| HAMN-052 | SDK Stylus-first default flow | done | SDK default mode=`stylus`, fallback в legacy управляется `legacyFallbackEnabled` |
+| HAMN-053 | Migration parity harness at scale | done | Добавлен массовый parity harness (batch vectors + diff report) |
+| HAMN-054 | Cutover + freeze plan for off-chain logic | done | Определен пошаговый cutover с freeze gate и rollback criteria |
+| HAMN-055 | Runbooks/docs for Stylus-only primary path | done | Runbooks/README/SDK docs синхронизированы: Stylus primary path, legacy только emergency fallback |
+| HAMN-047 | Canary scorecard template (metrics + gate result) | done | Добавлен единый scorecard-артефакт для canary gate decision |
+| HAMN-048 | Release owner handoff checklist template | done | Добавлен handoff checklist template для pre/post deployment ownership |
+| HAMN-056 | Decommission plan for legacy off-chain path | in-progress | Подготовить staged retirement legacy fallback с governance gates |
 
 ## Out of Scope
 

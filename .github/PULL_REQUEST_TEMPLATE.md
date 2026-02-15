@@ -39,6 +39,13 @@ Commands used:
 - [ ] Deployment impact documented
 - [ ] Runbook updates included (if needed)
 
+## Release Sign-Off (for release PRs)
+
+- [ ] Protocol Owner approved
+- [ ] Security Owner approved
+- [ ] Ops Owner approved
+- [ ] Governance approval attached (if required by policy)
+
 ## Risks
 
 - Key risks in this PR:

@@ -39,13 +39,22 @@ class HAMNClient {
     contracts;
     /** Active SDK mode */
     mode;
+    /** Requested mode from config before fallback handling. */
+    requestedMode;
     /** Optional Stylus verifier address */
     stylusVerifierAddress;
-    constructor(memory, contracts, mode = 'legacy', stylusVerifierAddress) {
+    /** Whether fallback from stylus -> legacy is enabled. */
+    legacyFallbackEnabled;
+    /** True when requested stylus mode was downgraded to legacy fallback. */
+    legacyFallbackUsed;
+    constructor(memory, contracts, mode = 'stylus', requestedMode = mode, stylusVerifierAddress, legacyFallbackEnabled = true, legacyFallbackUsed = false) {
         this.memory = memory;
         this.contracts = contracts;
         this.mode = mode;
+        this.requestedMode = requestedMode;
         this.stylusVerifierAddress = stylusVerifierAddress;
+        this.legacyFallbackEnabled = legacyFallbackEnabled;
+        this.legacyFallbackUsed = legacyFallbackUsed;
     }
     /**
      * Factory: create a HAMNClient from config + viem clients.
@@ -54,9 +63,19 @@ class HAMNClient {
      * Contract reads/writes will throw until you provide publicClient/walletClient.
      */
     static create(config, options) {
-        const mode = config.mode ?? 'legacy';
-        if (mode === 'stylus' && !config.stylusVerifierAddress) {
-            throw new errors_js_1.HAMNError('stylusVerifierAddress is required when mode is "stylus".');
+        const requestedMode = config.mode ?? 'stylus';
+        const legacyFallbackEnabled = config.legacyFallbackEnabled ?? true;
+        let mode = requestedMode;
+        const stylusVerifierAddress = config.stylusVerifierAddress;
+        let legacyFallbackUsed = false;
+        if (requestedMode === 'stylus' && !stylusVerifierAddress) {
+            if (legacyFallbackEnabled) {
+                mode = 'legacy';
+                legacyFallbackUsed = true;
+            }
+            else {
+                throw new errors_js_1.HAMNError('stylusVerifierAddress is required when mode is "stylus" and legacyFallbackEnabled is false.');
+            }
         }
         const memory = new memory_js_1.MemoryClient({
             nodeUrl: config.nodeUrl,
@@ -68,7 +87,7 @@ class HAMNClient {
             registryAddress: config.registryAddress,
             distributorAddress: config.distributorAddress,
         });
-        return new HAMNClient(memory, contracts, mode, config.stylusVerifierAddress);
+        return new HAMNClient(memory, contracts, mode, requestedMode, stylusVerifierAddress, legacyFallbackEnabled, legacyFallbackUsed);
     }
     // ═══════════════════════════════════════════════════════════════════
     //  Off-chain — Memory Node

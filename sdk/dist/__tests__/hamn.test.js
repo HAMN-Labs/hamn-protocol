@@ -39,7 +39,10 @@ vitest_1.vi.mock('../client/contracts.js');
                 timeoutMs: 5000,
             });
             (0, vitest_1.expect)(instance).toBeInstanceOf(hamn_js_1.HAMNClient);
+            (0, vitest_1.expect)(instance.requestedMode).toBe('stylus');
             (0, vitest_1.expect)(instance.mode).toBe('legacy');
+            (0, vitest_1.expect)(instance.legacyFallbackEnabled).toBe(true);
+            (0, vitest_1.expect)(instance.legacyFallbackUsed).toBe(true);
             (0, vitest_1.expect)(memory_js_1.MemoryClient).toHaveBeenCalledWith({
                 nodeUrl: config.nodeUrl,
                 timeoutMs: 5000,
@@ -62,17 +65,33 @@ vitest_1.vi.mock('../client/contracts.js');
             };
             const instance = hamn_js_1.HAMNClient.create(config);
             (0, vitest_1.expect)(instance.mode).toBe('stylus');
+            (0, vitest_1.expect)(instance.requestedMode).toBe('stylus');
+            (0, vitest_1.expect)(instance.legacyFallbackUsed).toBe(false);
             (0, vitest_1.expect)(instance.stylusVerifierAddress).toBe(config.stylusVerifierAddress);
         });
-        (0, vitest_1.it)('should throw when stylus mode has no stylusVerifierAddress', () => {
+        (0, vitest_1.it)('should throw when stylus mode has no stylusVerifierAddress and fallback is disabled', () => {
             const config = {
                 nodeUrl: 'http://localhost:8080',
                 rpcUrl: 'http://localhost:8545',
                 registryAddress: '0x1000000000000000000000000000000000000000',
                 distributorAddress: '0x2000000000000000000000000000000000000000',
                 mode: 'stylus',
+                legacyFallbackEnabled: false,
             };
             (0, vitest_1.expect)(() => hamn_js_1.HAMNClient.create(config)).toThrow(errors_js_1.HAMNError);
+        });
+        (0, vitest_1.it)('should keep stylus mode by default when stylusVerifierAddress is provided', () => {
+            const config = {
+                nodeUrl: 'http://localhost:8080',
+                rpcUrl: 'http://localhost:8545',
+                registryAddress: '0x1000000000000000000000000000000000000000',
+                distributorAddress: '0x2000000000000000000000000000000000000000',
+                stylusVerifierAddress: '0x3000000000000000000000000000000000000000',
+            };
+            const instance = hamn_js_1.HAMNClient.create(config);
+            (0, vitest_1.expect)(instance.requestedMode).toBe('stylus');
+            (0, vitest_1.expect)(instance.mode).toBe('stylus');
+            (0, vitest_1.expect)(instance.legacyFallbackUsed).toBe(false);
         });
     });
     // ── Off-chain Delegation (Memory) ─────────────────────────────────
