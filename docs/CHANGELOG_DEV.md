@@ -12,4 +12,7 @@
 - Добавлен master plan Phase 5: `docs/PHASE5_STYLUS_MAINNET_PLAN.md`.
 - Добавлен boundary spec v1: `docs/specs/stylus-boundary-v1.md`.
 - Зафиксировано архитектурное решение DEC-002 по fixed-point math для Stylus boundary.
-- Sprint/backlog обновлены: `HAMN-030` и `HAMN-031` закрыты, `HAMN-032` переведена в `in-progress`.
+- Создан `stylus-engine` skeleton (`stylus-engine/Cargo.toml`, `stylus-engine/src/lib.rs`, `stylus-engine/README.md`).
+- Добавлен CI workflow для stylus-engine: `.github/workflows/stylus-engine.yml`.
+- Прогон тестов `stylus-engine`: 4/4 passed.
+- Sprint/backlog обновлены: `HAMN-032` закрыт, `HAMN-033` переведена в `in-progress`.

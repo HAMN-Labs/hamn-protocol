@@ -6,13 +6,12 @@
 
 | ID | Task | Area | Priority | Status | Owner | Notes |
 |---|---|---|---|---|---|---|
-| HAMN-032 | Создать `stylus-engine/` skeleton + базовый CI pipeline | Core/CI | P1 | in-progress | codex | Старт WS2 после фиксации boundary spec |
+| HAMN-033 | SDK dual mode: `legacy` / `stylus` (feature flag) | SDK | P1 | in-progress | codex | Следующий execution шаг WS4 после skeleton |
 
 ## Next
 
 | ID | Task | Area | Priority | Status | Owner | Notes |
 |---|---|---|---|---|---|---|
-| HAMN-033 | SDK dual mode: `legacy` / `stylus` (feature flag) | SDK | P1 | next | unassigned | Старт WS4 |
 | HAMN-034 | Security threat model для Stylus + contract interactions | Security | P1 | next | unassigned | Старт WS3 |
 | HAMN-035 | Testnet deployment runbook + smoke checklist | Ops | P2 | next | unassigned | Старт WS5 |
 | HAMN-014 | Добавить верификацию `GET /params` интеграционным тестом | Core/SKD | P1 | next | unassigned | Зафиксировать API-контракт между Rust и TS |
@@ -40,6 +39,7 @@
 | HAMN-022 | Добавить `make process-check` | DX/Process | P1 | done | codex | Проверка обновления process docs при code changes |
 | HAMN-030 | Phase 5 planning: Stylus Integration & Mainnet deployment | Protocol | P1 | done | codex | Создан master plan `docs/PHASE5_STYLUS_MAINNET_PLAN.md` |
 | HAMN-031 | Stylus boundary spec v1 (data model + deterministic math) | Architecture | P1 | done | codex | Создан spec `docs/specs/stylus-boundary-v1.md` |
+| HAMN-032 | Создать `stylus-engine/` skeleton + базовый CI pipeline | Core/CI | P1 | done | codex | Создан `stylus-engine` + `.github/workflows/stylus-engine.yml` |
 
 ## Icebox
 

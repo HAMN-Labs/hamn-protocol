@@ -1,0 +1,27 @@
+name: Stylus Engine CI
+
+on:
+  pull_request:
+    paths:
+      - "stylus-engine/**"
+      - ".github/workflows/stylus-engine.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "stylus-engine/**"
+      - ".github/workflows/stylus-engine.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Test stylus-engine
+        working-directory: stylus-engine
+        run: cargo test --all-targets

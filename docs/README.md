@@ -11,6 +11,7 @@
 - `docs/RISKS.md` — риски, блокеры, зависимости.
 - `docs/PHASE5_STYLUS_MAINNET_PLAN.md` — план Phase 5 (Stylus Integration + Mainnet deployment).
 - `docs/INTEGRATION_HISTORY.md` — исторический интеграционный контекст (миграция из legacy `doc/`).
+- `docs/specs/stylus-boundary-v1.md` — boundary-спецификация v1 для Stylus (форматы и deterministic math).
 
 ## Правила обновления
 
