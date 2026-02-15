@@ -19,7 +19,14 @@
 - `docs/ops/mainnet-go-no-go-checklist.md` — production checklist перед mainnet go-live.
 - `docs/ops/mainnet-go-no-go-template.md` — шаблон финального go/no-go решения.
 - `docs/ops/mainnet-deployment-ledger-template.md` — шаблон журнала mainnet deployment (addresses/tx/config/sign-off).
+- `docs/ops/post-deploy-verification-template.sh` — шаблон post-deploy проверок (health/RPC/code/smoke).
+- `docs/ops/post-deploy-verification-template.md` — инструкция по запуску и обязательным переменным.
+- `docs/ops/incident-postmortem-template.md` — шаблон RCA/postmortem для rollout инцидентов.
+- `docs/ops/release-communications-template.md` — шаблон internal/public коммуникаций по релизу.
+- `docs/ops/incident-timeline-log-template.md` — шаблон журнала событий deployment window (UTC timeline).
 - `docs/process/PR_POLICY.md` — обязательный PR process-checklist и правила сопровождения документации.
+- `docs/process/release-signoff-matrix.md` — матрица обязательных approve-ролей для rollout/go-live.
+- `docs/process/release-readiness-review-checklist-template.md` — чеклист readiness review перед финальным GO/NO-GO.
 
 ## Правила обновления
 

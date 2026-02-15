@@ -9,7 +9,9 @@
 | R-003 | Расхождение deterministic math между off-chain Rust и Stylus может ломать валидацию/награды | High | Medium | Test vectors parity suite + strict boundary spec (HAMN-031) | unassigned | open |
 | R-004 | Неполная security readiness перед mainnet deployment | High | Medium | Threat model, security gate, external review checklist (HAMN-034) | unassigned | open |
 | R-005 | Операционные риски при go-live (мониторинг, rollback, инцидент-реакция) | High | Medium | Deployment runbook + canary rollout plan + alerting (HAMN-035/036/037) | unassigned | open |
+| R-006 | Сжатые сроки полной миграции off-chain логики в текущем спринте могут снизить качество/безопасность | High | High | Разбивка на HAMN-051..056 + жёсткие quality/security gates перед cutover | unassigned | open |
 
 ## Blockers
 
 - Нет назначенных owner-ов по Workstreams WS1-WS5 для Phase 5.
+- Нет подтверждённого cutover окна для полной миграции off-chain -> Stylus.

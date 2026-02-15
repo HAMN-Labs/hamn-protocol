@@ -6,7 +6,7 @@
 
 1. Стабилизировать локальный E2E workflow для разработчиков.
 2. Убрать рассинхрон между кодом и документацией.
-3. Запустить подготовительный этап Phase 5 (Stylus + Mainnet) на уровне архитектуры и planning.
+3. Выполнить полную миграцию off-chain логики в Stylus в рамках текущего спринта.
 
 ## Scope
 
@@ -22,15 +22,16 @@
 | HAMN-037 | Mainnet go/no-go checklist and template | done | Созданы checklist и decision template для production gate |
 | HAMN-038 | Parity test-vectors JSON for stylus boundary | done | Создан файл test-vectors и parity tests в `stylus-engine` |
 | HAMN-039 | Mainnet deployment ledger template | done | Создан шаблон ledger для addresses/tx/config/sign-off |
-| HAMN-014 | Проверка `GET /params` в интеграции | done | Проверка `GET /params` добавлена в unit и e2e |
-| HAMN-015 | Make smoke e2e target | done | Добавлен `make e2e-smoke` с preflight checks |
-| HAMN-016 | `.env` схема для локального деплоя/e2e | done | Добавлен `.env.example` + `Makefile` читает `.env` |
-| HAMN-020 | CI E2E job (anvil + memory node + sdk e2e) | done | Добавлен workflow `.github/workflows/e2e.yml` |
-| HAMN-021 | Process docs policy for PR | done | Добавлены PR template и policy doc |
-| HAMN-040 | Post-deploy verification script template | in-progress | Добавлен reusable script template и инструкция использования |
+| HAMN-040 | Post-deploy verification script template | done | Добавлен reusable script template и инструкция использования |
+| HAMN-041 | Release sign-off matrix | done | Создана матрица sign-off ролей и mandatory approvals |
+| HAMN-042 | Incident postmortem template | done | Добавлен шаблон RCA для rollout инцидентов |
+| HAMN-043 | Release communications template | done | Добавлен шаблон internal/public обновлений по релизу |
+| HAMN-044 | Incident timeline log template | done | Добавлен UTC timeline шаблон для deployment window |
+| HAMN-045 | Release readiness review checklist | done | Добавлен checklist template и критерии pre-go/no-go |
+| HAMN-046 | Release dependency/owner map template | in-progress | Добавлен шаблон карты зависимостей и ownership release scope |
+| HAMN-050 | Full off-chain -> Stylus migration execution | in-progress | Core off-chain logic parity-ported in Stylus, SDK switched to stylus path by default, legacy path frozen behind fallback flag |
 
 ## Out of Scope
 
-- Полная миграция всей off-chain логики в Stylus в рамках текущего спринта.
 - Mainnet go-live до прохождения security gate.
 - Изменение токеномики reward модели.
