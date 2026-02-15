@@ -1,0 +1,162 @@
+{
+  "version": "stylus-boundary-v1",
+  "scale": 1000000,
+  "cases": [
+    {
+      "name": "golden_happy_path",
+      "input": {
+        "similarity_fp": 900000,
+        "confidence_fp": 800000,
+        "lambda_fp": 1000,
+        "dt_seconds": 100,
+        "usage_count": 7,
+        "reputation_bp": 7500
+      },
+      "expected": {
+        "score_fp": 720000,
+        "freshness_fp": 800000,
+        "reward_weight_fp": 162000,
+        "accepted": true,
+        "reason_code": 0
+      }
+    },
+    {
+      "name": "boundary_zero_usage",
+      "input": {
+        "similarity_fp": 500000,
+        "confidence_fp": 500000,
+        "lambda_fp": 0,
+        "dt_seconds": 0,
+        "usage_count": 0,
+        "reputation_bp": 10000
+      },
+      "expected": {
+        "score_fp": 250000,
+        "freshness_fp": 500000,
+        "reward_weight_fp": 0,
+        "accepted": true,
+        "reason_code": 0
+      }
+    },
+    {
+      "name": "dt_capped_decay",
+      "input": {
+        "similarity_fp": 600000,
+        "confidence_fp": 900000,
+        "lambda_fp": 900000,
+        "dt_seconds": 2000000,
+        "usage_count": 10,
+        "reputation_bp": 8000
+      },
+      "expected": {
+        "score_fp": 54000,
+        "freshness_fp": 90000,
+        "reward_weight_fp": 12960,
+        "accepted": true,
+        "reason_code": 0
+      }
+    },
+    {
+      "name": "invalid_similarity_range",
+      "input": {
+        "similarity_fp": 1000001,
+        "confidence_fp": 500000,
+        "lambda_fp": 0,
+        "dt_seconds": 0,
+        "usage_count": 0,
+        "reputation_bp": 5000
+      },
+      "expected": {
+        "score_fp": 0,
+        "freshness_fp": 0,
+        "reward_weight_fp": 0,
+        "accepted": false,
+        "reason_code": 1001
+      }
+    },
+    {
+      "name": "monotonic_sim_low",
+      "input": {
+        "similarity_fp": 200000,
+        "confidence_fp": 900000,
+        "lambda_fp": 100,
+        "dt_seconds": 10,
+        "usage_count": 10,
+        "reputation_bp": 5000
+      },
+      "expected": {
+        "score_fp": 180000,
+        "freshness_fp": 900000,
+        "reward_weight_fp": 27000,
+        "accepted": true,
+        "reason_code": 0
+      }
+    },
+    {
+      "name": "monotonic_sim_high",
+      "input": {
+        "similarity_fp": 700000,
+        "confidence_fp": 900000,
+        "lambda_fp": 100,
+        "dt_seconds": 10,
+        "usage_count": 10,
+        "reputation_bp": 5000
+      },
+      "expected": {
+        "score_fp": 630000,
+        "freshness_fp": 900000,
+        "reward_weight_fp": 94500,
+        "accepted": true,
+        "reason_code": 0
+      }
+    },
+    {
+      "name": "monotonic_dt_early",
+      "input": {
+        "similarity_fp": 900000,
+        "confidence_fp": 900000,
+        "lambda_fp": 200,
+        "dt_seconds": 1,
+        "usage_count": 1,
+        "reputation_bp": 5000
+      },
+      "expected": {
+        "score_fp": 810000,
+        "freshness_fp": 900000,
+        "reward_weight_fp": 40500,
+        "accepted": true,
+        "reason_code": 0
+      }
+    },
+    {
+      "name": "monotonic_dt_late",
+      "input": {
+        "similarity_fp": 900000,
+        "confidence_fp": 900000,
+        "lambda_fp": 200,
+        "dt_seconds": 10000,
+        "usage_count": 1,
+        "reputation_bp": 5000
+      },
+      "expected": {
+        "score_fp": 809998,
+        "freshness_fp": 899998,
+        "reward_weight_fp": 40499,
+        "accepted": true,
+        "reason_code": 0
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "type": "score_non_decreasing",
+      "left": "monotonic_sim_low",
+      "right": "monotonic_sim_high"
+    },
+    {
+      "type": "freshness_non_increasing",
+      "left": "monotonic_dt_early",
+      "right": "monotonic_dt_late"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ Minimal skeleton for Phase 5 Stylus workstream.
 - `VerifyInputV1` / `VerifyOutputV1`
 - `verify_score_v1` deterministic logic (draft)
 - Unit tests for range validation and monotonic properties
+- Parity vectors loaded from `../docs/specs/test-vectors/stylus-boundary-v1.json`
 
 ## Run tests
 

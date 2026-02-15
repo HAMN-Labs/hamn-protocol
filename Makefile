@@ -83,7 +83,7 @@ e2e-smoke:
 	@$(MAKE) e2e
 
 process-check:
-	@code_changes=$$(git diff --name-only HEAD -- core-engine sdk contracts Makefile | grep -Ev '^(docs|doc)/' || true); \
+	@code_changes=$$(git diff --name-only HEAD -- core-engine sdk contracts stylus-engine .github Makefile | grep -Ev '^(docs|doc)/' || true); \
 	process_changes=$$(git diff --name-only HEAD -- docs/BACKLOG.md docs/CHANGELOG_DEV.md); \
 	if [ -z "$$code_changes" ]; then \
 		echo "process-check: no code changes detected"; \

@@ -2,6 +2,7 @@
 sdk/node_modules/
 sdk/dist/
 core-engine/target/
+stylus-engine/target/
 contracts/cache/
 contracts/out/
 .env

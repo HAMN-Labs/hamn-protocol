@@ -24,4 +24,16 @@
 - E2E script проверяет `/params` через `client.memory.getParams()`.
 - SDK tests после изменений: 43/43 passed.
 - Добавлен `make e2e-smoke` с preflight-проверками Memory Node и RPC.
-- Sprint/backlog обновлены: `HAMN-015` закрыт, `HAMN-016` переведен в `in-progress`.
+- Добавлен `.env.example`, `Makefile` загружает `.env` автоматически.
+- Обновлен local run в `README.md` под `.env` + `make e2e-smoke`.
+- Добавлен GitHub Actions workflow E2E: `.github/workflows/e2e.yml`.
+- Добавлены `.github/PULL_REQUEST_TEMPLATE.md` и `docs/process/PR_POLICY.md`.
+- Добавлен canary rollout plan: `docs/ops/canary-rollout-plan.md`.
+- Добавлены mainnet artifacts: `docs/ops/mainnet-go-no-go-checklist.md` и `docs/ops/mainnet-go-no-go-template.md`.
+- Добавлены parity vectors: `docs/specs/test-vectors/stylus-boundary-v1.json`.
+- Добавлен parity test harness: `stylus-engine/tests/parity_vectors.rs`.
+- Прогон тестов `stylus-engine` после parity vectors: 6/6 passed.
+- Добавлен `docs/ops/mainnet-deployment-ledger-template.md`.
+- `process-check` расширен: учитывает `stylus-engine` и `.github`.
+- `.gitignore` обновлен: добавлен `stylus-engine/target/`.
+- Sprint/backlog обновлены: `HAMN-039` закрыт, `HAMN-040` переведен в `in-progress`.
