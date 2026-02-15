@@ -1,13 +1,14 @@
-# System Integration Documentation
+# Legacy Docs Notice
 
-This directory contains the documentation for the system integration process of the HAMN Protocol.
+Содержимое папки `doc/` перенесено в `docs/`.
 
-## Files
+Актуальные документы процесса:
+- `docs/README.md`
+- `docs/BACKLOG.md`
+- `docs/SPRINT.md`
+- `docs/CHANGELOG_DEV.md`
+- `docs/DECISIONS.md`
+- `docs/RISKS.md`
 
-- **[implementation_plan.md](./implementation_plan.md)**: Details the technical plan for integrating the SDK, Core Engine, and Smart Contracts.
-- **[task.md](./task.md)**: A checklist of tasks completed during the integration phase.
-- **[walkthrough.md](./walkthrough.md)**: A step-by-step guide and verification report of the successful E2E integration, including test results and instructions on how to run the integration test.
-
-## Usage
-
-These documents serve as a record of the work done to enable end-to-end testing of the HAMN Protocol. Refer to `walkthrough.md` for instructions on running the system locally.
+История интеграционного этапа:
+- `docs/INTEGRATION_HISTORY.md`

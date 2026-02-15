@@ -9,6 +9,8 @@
 - `docs/CHANGELOG_DEV.md` — инженерный журнал изменений (дата, что сделано, что проверить).
 - `docs/DECISIONS.md` — архитектурные и процессные решения (ADR-lite).
 - `docs/RISKS.md` — риски, блокеры, зависимости.
+- `docs/PHASE5_STYLUS_MAINNET_PLAN.md` — план Phase 5 (Stylus Integration + Mainnet deployment).
+- `docs/INTEGRATION_HISTORY.md` — исторический интеграционный контекст (миграция из legacy `doc/`).
 
 ## Правила обновления
 
