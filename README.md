@@ -133,28 +133,34 @@ To transition from MVP to a global intelligence marketplace, HAMN leverages **Ar
 
 Quick local E2E flow:
 
-1. Start local chain:
+1. Create local env config:
+
+```bash
+cp .env.example .env
+```
+
+2. Start local chain:
 
 ```bash
 make anvil
 ```
 
-2. In a second terminal, start Memory Node:
+3. In a second terminal, start Memory Node:
 
 ```bash
 make memory-node
 ```
 
-3. Deploy contracts to local Anvil:
+4. Deploy contracts to local Anvil:
 
 ```bash
 make deploy-local
 ```
 
-4. Run end-to-end SDK integration test:
+5. Run smoke preflight + end-to-end SDK integration test:
 
 ```bash
-make e2e
+make e2e-smoke
 ```
 
 You can see all available commands with:

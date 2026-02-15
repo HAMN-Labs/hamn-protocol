@@ -4,3 +4,4 @@ sdk/dist/
 core-engine/target/
 contracts/cache/
 contracts/out/
+.env

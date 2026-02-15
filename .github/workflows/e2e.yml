@@ -1,0 +1,85 @@
+name: E2E Local Stack
+
+on:
+  pull_request:
+    paths:
+      - "core-engine/**"
+      - "contracts/**"
+      - "sdk/**"
+      - "Makefile"
+      - ".github/workflows/e2e.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "core-engine/**"
+      - "contracts/**"
+      - "sdk/**"
+      - "Makefile"
+      - ".github/workflows/e2e.yml"
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: sdk/package-lock.json
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Setup Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+
+      - name: Install SDK dependencies
+        working-directory: sdk
+        run: npm ci
+
+      - name: Start Anvil
+        run: |
+          nohup anvil > /tmp/anvil.log 2>&1 &
+
+      - name: Start Memory Node
+        run: |
+          nohup cargo run --manifest-path core-engine/Cargo.toml > /tmp/memory-node.log 2>&1 &
+
+      - name: Wait for services
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://127.0.0.1:8080/health > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          for i in {1..30}; do
+            if curl -fsS -H "Content-Type: application/json" \
+              -d '{"jsonrpc":"2.0","method":"eth_chainId","params":[],"id":1}' \
+              http://127.0.0.1:8545 > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Deploy contracts (local)
+        run: make deploy-local
+
+      - name: Run E2E smoke
+        run: make e2e-smoke
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-logs
+          path: |
+            /tmp/anvil.log
+            /tmp/memory-node.log

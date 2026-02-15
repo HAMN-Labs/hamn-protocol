@@ -17,8 +17,8 @@
 ## Planned
 
 | ID | Task | Area | Priority | Status | Owner | Notes |
-|---|---|---|---|---|---|---|
-| HAMN-036 | Canary rollout plan (gates, metrics, rollback criteria) | Ops | P2 | planned | unassigned | M4 |
+|---|---|---|---|---|---|-plan (gates, metrics, rollback criteria) | Ops | P2 | planned | unassigned | M4 |--|
+| HAMN-036 | Canary rollout 
 | HAMN-037 | Mainnet deployment checklist + go/no-go template | Ops/Governance | P1 | planned | unassigned | M5 |
 | HAMN-021 | Добавить policy для автообновления process docs в PR checklist | Process | P3 | planned | unassigned | Усилить дисциплину обновления backlog/changelog |
 
