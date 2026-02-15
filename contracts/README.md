@@ -1,66 +1,55 @@
-## Foundry
+# HAMN Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Смарт-контракты HAMN Protocol для Arbitrum (Foundry).
 
-Foundry consists of:
+## Что внутри
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- `src/PatternRegistry.sol` — регистрация паттернов, stake, reputation, slashing.
+- `src/RewardDistributor.sol` — накопление и клейм наград владельцами паттернов.
+- `test/PatternRegistry.t.sol` — тесты для обоих контрактов.
+- `script/Deploy.s.sol` — скрипт деплоя `PatternRegistry` + `RewardDistributor`.
 
-## Documentation
+## Требования
 
-https://book.getfoundry.sh/
+- Foundry (`forge`, `anvil`, `cast`)
 
-## Usage
+Установка:
 
-### Build
-
-```shell
-$ forge build
+```bash
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
 ```
 
-### Test
+## Команды
 
-```shell
-$ forge test
+Сборка:
+
+```bash
+forge build
 ```
 
-### Format
+Тесты:
 
-```shell
-$ forge fmt
+```bash
+forge test
 ```
 
-### Gas Snapshots
+Локальная сеть:
 
-```shell
-$ forge snapshot
+```bash
+anvil
 ```
 
-### Anvil
+Деплой в локальный Anvil:
 
-```shell
-$ anvil
+```bash
+forge script script/Deploy.s.sol:DeployScript \
+  --rpc-url http://127.0.0.1:8545 \
+  --broadcast \
+  --private-key 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
 ```
 
-### Deploy
+## Заметки
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+- `PatternRegistry.minStake` по умолчанию: `0.01 ether`.
+- `RewardDistributor.accrueReward` доступен только `owner` контракта.

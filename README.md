@@ -123,13 +123,49 @@ To transition from MVP to a global intelligence marketplace, HAMN leverages **Ar
 
 | Component                        | Stack              | Docs                                                                            |
 | -------------------------------- | ------------------ | ------------------------------------------------------------------------------- |
-| [`core-engine/`](./core-engine/) | Rust               | Memory engine (similarity, scoring, decay) — **20/20 tests**                    |
+| [`core-engine/`](./core-engine/) | Rust               | Memory engine (similarity, scoring, decay) — **22/22 tests**                    |
 | [`contracts/`](./contracts/)     | Solidity + Foundry | PatternRegistry, RewardDistributor — **12/12 tests**                            |
-| [`sdk/`](./sdk/)                 | TypeScript + viem  | Client SDK ([EN](./sdk/README.md) / [RU](./sdk/README.ru.md)) — **25/25 tests** |
+| [`sdk/`](./sdk/)                 | TypeScript + viem  | Client SDK ([EN](./sdk/README.md) / [RU](./sdk/README.ru.md)) — **40/40 tests** |
 
 ---
 
-## 10. Vision
+## 10. Local Run (Makefile)
+
+Quick local E2E flow:
+
+1. Start local chain:
+
+```bash
+make anvil
+```
+
+2. In a second terminal, start Memory Node:
+
+```bash
+make memory-node
+```
+
+3. Deploy contracts to local Anvil:
+
+```bash
+make deploy-local
+```
+
+4. Run end-to-end SDK integration test:
+
+```bash
+make e2e
+```
+
+You can see all available commands with:
+
+```bash
+make help
+```
+
+---
+
+## 11. Vision
 
 HAMN is not just an AI model; it is the **infrastructure for collective memory in Web3**. By turning Arbitrum into a high-performance compute platform, we are building the "Knowledge Backbone" for future AI-agentic workflows.
 

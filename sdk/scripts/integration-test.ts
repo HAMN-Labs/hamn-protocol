@@ -3,14 +3,16 @@ import { privateKeyToAccount } from 'viem/accounts';
 import { foundry } from 'viem/chains';
 import { HAMNClient } from '../src/hamn.js';
 
-// Configuration based on local deployment
-const ANVIL_RPC = 'http://127.0.0.1:8545';
-const MEMORY_NODE_URL = 'http://127.0.0.1:8080';
-const REGISTRY_ADDR = '0x5fbdb2315678afecb367f032d93f642f64180aa3';
-const DISTRIBUTOR_ADDR = '0xe7f1725e7734ce288f8367e1bb143e90bb3f0512';
+const ANVIL_RPC = process.env.ANVIL_RPC ?? 'http://127.0.0.1:8545';
+const MEMORY_NODE_URL = process.env.MEMORY_NODE_URL ?? 'http://127.0.0.1:8080';
+const REGISTRY_ADDR = (process.env.REGISTRY_ADDR ??
+  '0x5fbdb2315678afecb367f032d93f642f64180aa3') as `0x${string}`;
+const DISTRIBUTOR_ADDR = (process.env.DISTRIBUTOR_ADDR ??
+  '0xe7f1725e7734ce288f8367e1bb143e90bb3f0512') as `0x${string}`;
 
-// Valid Anvil private key (Account #0)
-const ANVIL_PK = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
+// Default: Anvil account #0 private key
+const ANVIL_PK =
+  process.env.ANVIL_PK ?? '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80';
 
 async function main() {
   console.log('🚀 Starting E2E Integration Test...');
@@ -31,6 +33,7 @@ async function main() {
   const client = HAMNClient.create(
     {
       nodeUrl: MEMORY_NODE_URL,
+      rpcUrl: ANVIL_RPC,
       registryAddress: REGISTRY_ADDR,
       distributorAddress: DISTRIBUTOR_ADDR,
     },

@@ -1,2 +1,6 @@
 
-sdk/node_modules
+sdk/node_modules/
+sdk/dist/
+core-engine/target/
+contracts/cache/
+contracts/out/

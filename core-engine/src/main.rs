@@ -5,7 +5,7 @@ use axum::{
     Json, Router,
 };
 use core_engine::{MemoryNode, Pattern, QueryResult};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use std::sync::{Arc, RwLock};
 use tower_http::cors::CorsLayer;
 use tower_http::trace::TraceLayer;
@@ -35,6 +35,7 @@ async fn main() {
         .route("/patterns/:id", get(get_pattern).delete(remove_pattern))
         .route("/patterns/:id/usage", post(record_usage))
         .route("/decay", post(decay))
+        .route("/params", get(get_params))
         .layer(CorsLayer::permissive())
         .layer(TraceLayer::new_for_http())
         .with_state(state);
@@ -123,4 +124,18 @@ async fn decay(State(state): State<Arc<AppState>>) -> StatusCode {
     let mut node = state.node.write().unwrap();
     node.decay_all();
     StatusCode::NO_CONTENT
+}
+
+#[derive(Serialize)]
+struct ParamsResponse {
+    alpha: f32,
+    lambda: f32,
+}
+
+async fn get_params(State(state): State<Arc<AppState>>) -> Json<ParamsResponse> {
+    let node = state.node.read().unwrap();
+    Json(ParamsResponse {
+        alpha: node.alpha,
+        lambda: node.lambda,
+    })
 }
