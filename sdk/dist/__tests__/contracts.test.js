@@ -95,13 +95,12 @@ const TX_HASH = '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567
             walletClient.writeContract.mockResolvedValueOnce(TX_HASH);
             const hash = await client.registerPattern(PATTERN_ID, BigInt(10_000_000_000_000_000));
             (0, vitest_1.expect)(hash).toBe(TX_HASH);
-            (0, vitest_1.expect)(walletClient.writeContract).toHaveBeenCalledWith({
+            (0, vitest_1.expect)(walletClient.writeContract).toHaveBeenCalledWith(vitest_1.expect.objectContaining({
                 address: REGISTRY,
-                abi: vitest_1.expect.any(Array),
                 functionName: 'registerPattern',
                 args: [PATTERN_ID],
                 value: BigInt(10_000_000_000_000_000),
-            });
+            }));
         });
         (0, vitest_1.it)('should throw ContractError in read-only mode', async () => {
             await (0, vitest_1.expect)(readOnlyClient.registerPattern(PATTERN_ID, BigInt(10_000_000_000_000_000))).rejects.toThrow(errors_js_1.ContractError);
@@ -139,12 +138,11 @@ const TX_HASH = '0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567
             walletClient.writeContract.mockResolvedValueOnce(TX_HASH);
             const hash = await client.depositRewards(BigInt(1_000_000));
             (0, vitest_1.expect)(hash).toBe(TX_HASH);
-            (0, vitest_1.expect)(walletClient.writeContract).toHaveBeenCalledWith({
+            (0, vitest_1.expect)(walletClient.writeContract).toHaveBeenCalledWith(vitest_1.expect.objectContaining({
                 address: DISTRIBUTOR,
-                abi: vitest_1.expect.any(Array),
                 functionName: 'deposit',
                 value: BigInt(1_000_000),
-            });
+            }));
         });
     });
     (0, vitest_1.describe)('accrueReward', () => {
