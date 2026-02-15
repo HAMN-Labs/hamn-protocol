@@ -19,7 +19,7 @@ impl MemoryNode {
     pub fn new() -> Self {
         MemoryNode {
             patterns: HashMap::new(),
-            alpha: 0.1,   // default learning rate
+            alpha: 0.1,    // default learning rate
             lambda: 0.001, // default decay rate
         }
     }
@@ -66,19 +66,23 @@ impl MemoryNode {
         let mut scored: Vec<QueryResult> = self
             .patterns
             .values()
-            .map(|p| {
-                let sim = math::cosine_similarity(&p.vector, query);
+            .filter_map(|p| {
+                let sim = math::cosine_similarity(&p.vector, query).ok()?;
                 let score = math::compute_score(sim, p, self.lambda, now);
-                QueryResult {
+                Some(QueryResult {
                     pattern: p.clone(),
                     similarity: sim,
                     score,
-                }
+                })
             })
             .collect();
 
         // Sort descending by score
-        scored.sort_by(|a, b| b.score.partial_cmp(&a.score).unwrap_or(std::cmp::Ordering::Equal));
+        scored.sort_by(|a, b| {
+            b.score
+                .partial_cmp(&a.score)
+                .unwrap_or(std::cmp::Ordering::Equal)
+        });
         scored.truncate(k);
         scored
     }
@@ -105,6 +109,23 @@ impl MemoryNode {
             p.confidence = math::decay(p.confidence, self.lambda, dt);
             p.last_accessed = now;
         }
+    }
+
+    /// Save the current state to a JSON file.
+    pub fn save_to_json<P: AsRef<std::path::Path>>(&self, path: P) -> std::io::Result<()> {
+        let file = std::fs::File::create(path)?;
+        let writer = std::io::BufWriter::new(file);
+        serde_json::to_writer(writer, &self.patterns)?;
+        Ok(())
+    }
+
+    /// Load state from a JSON file, replacing current patterns.
+    pub fn load_from_json<P: AsRef<std::path::Path>>(&mut self, path: P) -> std::io::Result<()> {
+        let file = std::fs::File::open(path)?;
+        let reader = std::io::BufReader::new(file);
+        let patterns: HashMap<String, Pattern> = serde_json::from_reader(reader)?;
+        self.patterns = patterns;
+        Ok(())
     }
 
     fn now() -> u64 {
@@ -228,5 +249,30 @@ mod tests {
 
         let result = node.find_best(&[1.0, 0.0]).unwrap();
         assert_eq!(result.pattern.id, "high");
+    }
+
+    #[test]
+    fn test_persistence() {
+        let mut node = MemoryNode::new();
+        node.add_pattern(make_pattern("p1", vec![1.0, 2.0], 0.5));
+
+        let tmp_dir = std::env::temp_dir();
+        let file_path = tmp_dir.join("hamn_test_persistence.json");
+
+        // Save
+        node.save_to_json(&file_path).expect("Failed to save");
+
+        // Load into new node
+        let mut loaded_node = MemoryNode::new();
+        loaded_node
+            .load_from_json(&file_path)
+            .expect("Failed to load");
+
+        assert_eq!(loaded_node.len(), 1);
+        let loaded_p = loaded_node.find_best(&[1.0, 2.0]).unwrap();
+        assert_eq!(loaded_p.pattern.id, "p1");
+
+        // Cleanup
+        let _ = std::fs::remove_file(file_path);
     }
 }

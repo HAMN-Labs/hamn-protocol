@@ -1,9 +1,13 @@
 use crate::types::Pattern;
 
 /// Cosine similarity between two vectors.
-/// Returns a value in [-1.0, 1.0]. Returns 0.0 for zero-magnitude vectors.
-pub fn cosine_similarity(v1: &[f32], v2: &[f32]) -> f32 {
-    assert_eq!(v1.len(), v2.len(), "Vector dimensions must match");
+/// Returns a value in [-1.0, 1.0].
+/// Returns Ok(0.0) for zero-magnitude vectors.
+/// Returns Err if vector dimensions do not match.
+pub fn cosine_similarity(v1: &[f32], v2: &[f32]) -> Result<f32, &'static str> {
+    if v1.len() != v2.len() {
+        return Err("Vector dimensions must match");
+    }
 
     let mut dot = 0.0f32;
     let mut mag1 = 0.0f32;
@@ -17,9 +21,9 @@ pub fn cosine_similarity(v1: &[f32], v2: &[f32]) -> f32 {
 
     let denom = mag1.sqrt() * mag2.sqrt();
     if denom == 0.0 {
-        0.0
+        Ok(0.0)
     } else {
-        dot / denom
+        Ok(dot / denom)
     }
 }
 
@@ -60,31 +64,47 @@ mod tests {
     #[test]
     fn test_cosine_identical() {
         let v = vec![1.0, 2.0, 3.0];
-        let sim = cosine_similarity(&v, &v);
-        assert!((sim - 1.0).abs() < 1e-6, "Identical vectors should have similarity 1.0");
+        let sim = cosine_similarity(&v, &v).unwrap();
+        assert!(
+            (sim - 1.0).abs() < 1e-6,
+            "Identical vectors should have similarity 1.0"
+        );
     }
 
     #[test]
     fn test_cosine_orthogonal() {
         let v1 = vec![1.0, 0.0, 0.0];
         let v2 = vec![0.0, 1.0, 0.0];
-        let sim = cosine_similarity(&v1, &v2);
-        assert!(sim.abs() < 1e-6, "Orthogonal vectors should have similarity 0.0");
+        let sim = cosine_similarity(&v1, &v2).unwrap();
+        assert!(
+            sim.abs() < 1e-6,
+            "Orthogonal vectors should have similarity 0.0"
+        );
     }
 
     #[test]
     fn test_cosine_opposite() {
         let v1 = vec![1.0, 0.0];
         let v2 = vec![-1.0, 0.0];
-        let sim = cosine_similarity(&v1, &v2);
-        assert!((sim - (-1.0)).abs() < 1e-6, "Opposite vectors should have similarity -1.0");
+        let sim = cosine_similarity(&v1, &v2).unwrap();
+        assert!(
+            (sim - (-1.0)).abs() < 1e-6,
+            "Opposite vectors should have similarity -1.0"
+        );
     }
 
     #[test]
     fn test_cosine_zero_vector() {
         let v1 = vec![1.0, 2.0];
         let v2 = vec![0.0, 0.0];
-        assert_eq!(cosine_similarity(&v1, &v2), 0.0);
+        assert_eq!(cosine_similarity(&v1, &v2).unwrap(), 0.0);
+    }
+
+    #[test]
+    fn test_cosine_mismatch() {
+        let v1 = vec![1.0, 2.0];
+        let v2 = vec![1.0];
+        assert!(cosine_similarity(&v1, &v2).is_err());
     }
 
     #[test]
