@@ -43,6 +43,11 @@ impl MemoryNode {
         self.patterns.remove(id)
     }
 
+    /// Get a pattern by ID.
+    pub fn get_pattern(&self, id: &str) -> Option<&Pattern> {
+        self.patterns.get(id)
+    }
+
     /// Number of stored patterns.
     pub fn len(&self) -> usize {
         self.patterns.len()
